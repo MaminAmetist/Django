@@ -14,25 +14,25 @@
 </header>
 
 {% block navigation %}
-    <h3>Меню навигации:</h3>
-    <a href="/">Главная</a>
-    <a href="/store/">Каталог</a>
-    <a href="/buy/">Корзина</a>
+<h3>Меню навигации:</h3>
+<a href="/">Главная</a>
+<a href="/store/">Каталог</a>
+<a href="/buy/">Корзина</a>
 {% endblock %}
 
 {% block catalog %}
-    <h2>{{ head_list }}</h2>
-    {% if games %}
+<h2>{{ head_list }}</h2>
+{% if games %}
 
-        {% for game in games %}
-            {{ game }}
-            <button>В корзину</button>
-            <br>
-        {% endfor %}
+{% for game in games %}
+{{ game }}|{{ game.description }}| Стоимость: {{ game.cost }}
+<button>В корзину</button>
+<br>
+{% endfor %}
 
-    {% else %}
-        Товары отсутствуют
-    {% endif %}
+{% else %}
+Товары отсутствуют.
+{% endif %}
 
 {% endblock %}
 

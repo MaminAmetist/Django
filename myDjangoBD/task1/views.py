@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import UserRegister
+from .models import *
 
 
 # Create your views here.
@@ -12,14 +13,14 @@ def started_func(request):
 
 def store_func(request):
     head_list = 'Список доступных товаров:'
-    games = ["Atomic Heart", "Cyberpunk 2077", "PayDay 2"]
+    games = Game.objects.all()
     context = {'head_list': head_list,
                'games': games, }
     return render(request, 'temple_store.html', context)
 
 
 def buy_func(request):
-    text_head = 'Денег нет, но вы держитесь'
+    text_head = 'Денег нет, но вы держитесь.'
     context = {'text_head': text_head, }
     return render(request, 'temple_buy.html', context)
 
@@ -33,6 +34,7 @@ def sign_up_by_django(request):
             repeat_password = form.cleaned_data['repeat_password']
             age = form.cleaned_data['age']
             subscribe = form.cleaned_data['subscribe']
+            Buyer.objects.create(name=username, balance='999.00', age=age)
             return HttpResponse(f'Приветствуем, {username}!')
     else:
         form = UserRegister()

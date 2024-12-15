@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from .models import *
 
 
 def validate_age(value):
@@ -21,17 +22,16 @@ class UserRegister(forms.Form):
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
-        users = ['Anna', 'Den', 'Cat']
         if ' ' in username:
             raise forms.ValidationError('Имя пользователя не должно содержать пробелы.')
         elif len(username) > 30:
             raise forms.ValidationError('Имя пользователя должно содержать не более 30 символов.')
-        elif username in users:
+        if Buyer.objects.get(name=username):
             raise forms.ValidationError('Пользователь уже существует.')
         return username
 
     def clean_password(self):
-        #cleaned_data = super().clean()
+        # cleaned_data = super().clean()
         password = self.cleaned_data.get('password')
         repeat_password = self.cleaned_data.get('repeat_password')
         if password and repeat_password and password != repeat_password:
@@ -41,5 +41,5 @@ class UserRegister(forms.Form):
     def clean_age(self):
         age = self.cleaned_data.get('age')
         if len(str(age)) > 3:
-            raise forms.ValidationError('Столько не живут.')
+            raise forms.ValidationError(f'Столько не живут{age}.')
         return age
