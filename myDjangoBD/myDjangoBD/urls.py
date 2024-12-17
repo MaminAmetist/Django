@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 
 from django.views.generic import TemplateView
-from task1.views import started_func, store_func, buy_func, sign_up_by_django
+from task1.views import started_func, store_func, buy_func, sign_up_by_django, news_paginator
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +26,5 @@ urlpatterns = [
     path('store/', store_func),
     path('buy/', buy_func),
     path('django_sign_up/', sign_up_by_django),
+    path('platform/news/', news_paginator),
 ]
