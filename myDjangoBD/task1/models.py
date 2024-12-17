@@ -16,7 +16,7 @@ class Game(models.Model):
     cost = models.DecimalField(max_digits=5, decimal_places=2)
     size = models.DecimalField(max_digits=5, decimal_places=2)
     description = models.TextField()
-    age_limited = models.BooleanField()
+    age_limited = models.BooleanField(default=True)
     buyer = models.ManyToManyField(Buyer)
 
     def __str__(self):
