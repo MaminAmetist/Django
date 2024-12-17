@@ -3,21 +3,31 @@ from django.db import models
 
 # Create your models here.
 class Buyer(models.Model):
-    name = models.CharField(max_length=20)
-    balance = models.DecimalField(max_digits=5, decimal_places=2)
-    age = models.IntegerField()
+    name = models.CharField('Имя', max_length=20)
+    balance = models.DecimalField('Баланс', max_digits=5, decimal_places=2)
+    age = models.PositiveSmallIntegerField('Возраст', )
 
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Покупатели'
+        verbose_name = 'покупателя'
+        ordering = ['name']
+
 
 class Game(models.Model):
-    title = models.CharField(max_length=100)
-    cost = models.DecimalField(max_digits=5, decimal_places=2)
-    size = models.DecimalField(max_digits=5, decimal_places=2)
-    description = models.TextField()
-    age_limited = models.BooleanField(default=False)
+    title = models.CharField('Наименование', max_length=100)
+    cost = models.DecimalField('Стоимость', max_digits=5, decimal_places=2)
+    size = models.DecimalField('Размер', max_digits=5, decimal_places=2)
+    description = models.TextField('Описание', )
+    age_limited = models.BooleanField('Возрастной ценз', default=False)
     buyer = models.ManyToManyField(Buyer)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name_plural = 'Игры'
+        verbose_name = 'игру'
+        ordering = ['size']
