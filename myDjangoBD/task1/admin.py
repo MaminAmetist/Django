@@ -5,26 +5,28 @@ from .models import *
 # Register your models here.
 @admin.register(Buyer)
 class BuyerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'balance', 'age',)
+    list_display = ('name', 'balance', 'age')
     search_fields = ('name',)
+    list_filter = ('balance', 'age')
+    list_per_page = 30
+    readonly_fields = ('balance',)
 
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
-    list_display = ('title', 'cost', 'size', 'description', 'age_limited')
+    list_display = ('title', 'cost', 'size')
     search_fields = ('title',)
-    list_filter = ('buyer',)
-    list_per_page = 2
+    list_filter = ('buyer', 'cost', 'size')
+    list_per_page = 20
     fieldsets = (
         (None, {
-            'fields': ('title', 'cost', 'size', 'description',)
+            'fields': ('title', 'cost', 'size')
         }),
         ('Дополнительные сведения:', {
             'classes': ('collapse',),
-            'fields': ('buyer', 'age_limited',)
+            'fields': ('buyer', 'age_limited', 'description')
         }),
     )
-    readonly_fields = ('age_limited',)
 
 
 @admin.register(News)
